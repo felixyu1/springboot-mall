@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class Product {
 
-    Integer productId;
-    String productName;
-    String category;
-    String imageUrl;
-    Integer price;
-    Integer stock;
-    String description;
-    Date createdDate;
-    Date lastModifiedDate;
+    private Integer productId;
+    private String productName;
+    private String category;
+    private String imageUrl;
+    private Integer price;
+    private Integer stock;
+    private String description;
+    private Date createdDate;
+    private Date lastModifiedDate;
 
     public Integer getProductId() {
         return productId;
