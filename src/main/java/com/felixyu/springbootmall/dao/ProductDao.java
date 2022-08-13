@@ -10,7 +10,7 @@ public interface ProductDao {
 
     List<Product> getProducts(ProductQueryParams productQueryParams);
     Product getProducyById(Integer productId);
-
+    Integer countProduct(ProductQueryParams productQueryParams);
     Integer createProduct(ProductRequest productRequest);
 
     void updateProduct(Integer productId, ProductRequest productRequest);
