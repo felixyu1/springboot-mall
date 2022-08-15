@@ -1,5 +1,6 @@
 package com.felixyu.springbootmall.dto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
@@ -9,7 +10,7 @@ public class UserRegisterRequest {
     private String email;
     @NotBlank
     private String password;
-
+    @Email
     public String getEmail() {
         return email;
     }
