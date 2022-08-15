@@ -1,5 +1,6 @@
 package com.felixyu.springbootmall.controller;
 
+import com.felixyu.springbootmall.dto.UserLoginRequest;
 import com.felixyu.springbootmall.dto.UserRegisterRequest;
 import com.felixyu.springbootmall.model.User;
 import com.felixyu.springbootmall.service.UserService;
@@ -26,5 +27,13 @@ public class UserController {
         User user = userService.getUserById(userId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    }
+
+    @PostMapping("/users/login")
+    public ResponseEntity<User> login(@RequestBody @Valid UserLoginRequest userLoginRequesr){
+
+        User user = userService.login(userLoginRequesr);
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 }

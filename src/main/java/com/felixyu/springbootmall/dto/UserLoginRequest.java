@@ -2,9 +2,8 @@ package com.felixyu.springbootmall.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.Date;
 
-public class UserRegisterRequest {
+public class UserLoginRequest {
 
     @NotBlank
     @Email
