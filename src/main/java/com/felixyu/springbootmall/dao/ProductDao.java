@@ -9,7 +9,7 @@ import java.util.List;
 public interface ProductDao {
 
     List<Product> getProducts(ProductQueryParams productQueryParams);
-    Product getProducyById(Integer productId);
+    Product getProductById(Integer productId);
     Integer countProduct(ProductQueryParams productQueryParams);
     Integer createProduct(ProductRequest productRequest);
 
