@@ -4,6 +4,7 @@ import com.felixyu.springbootmall.dao.OrderDao;
 import com.felixyu.springbootmall.dao.ProductDao;
 import com.felixyu.springbootmall.dto.BuyItem;
 import com.felixyu.springbootmall.dto.CreateOrderRequest;
+import com.felixyu.springbootmall.model.Order;
 import com.felixyu.springbootmall.model.OrderItem;
 import com.felixyu.springbootmall.model.Product;
 import com.felixyu.springbootmall.service.OrderService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -49,5 +51,16 @@ public class OrderServiceImpl implements OrderService {
         orderDao.createOrderItems(orderId, orderItemList);
 
         return orderId;
+    }
+
+    @Override
+    public Order getOrderById(Integer orderId) {
+        Order order = orderDao.getOrderById(orderId);
+
+        List<OrderItem> orderItemList = orderDao.getOrderItemsByOrderId(orderId);
+
+        order.setOrderItemList(orderItemList);
+
+        return order;
     }
 }
