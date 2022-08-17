@@ -1,11 +1,14 @@
 package com.felixyu.springbootmall.dao.impl;
 
 import com.felixyu.springbootmall.dao.OrderDao;
+import com.felixyu.springbootmall.dto.OrderQueryParams;
+import com.felixyu.springbootmall.dto.ProductQueryParams;
 import com.felixyu.springbootmall.model.Order;
 import com.felixyu.springbootmall.model.OrderItem;
 import com.felixyu.springbootmall.model.Product;
 import com.felixyu.springbootmall.rowmapper.OrderItemRowMapper;
 import com.felixyu.springbootmall.rowmapper.OrderRowMapper;
+import com.felixyu.springbootmall.rowmapper.ProductRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -103,5 +106,50 @@ public class OrderDaoImpl implements OrderDao {
                 namedParameterJdbcTemplate.query(sql, map, new OrderItemRowMapper());
 
         return orderItemList;
+    }
+
+    @Override
+    public List<Order> getOrders(OrderQueryParams orderQueryParams) {
+        String sql = " SELECT order_id, user_id, total_amount, " +
+                     " created_date, last_modified_date " +
+                     " FROM `order` " +
+                     " WHERE 1=1 ";
+
+        Map<String, Object> map = new HashMap<>();
+
+        sql = addFilteringSql(sql, map, orderQueryParams);
+
+        sql = sql + " ORDER BY created_date DESC ";
+
+        sql = sql + " LIMIT :limit OFFSET :offset ";
+        map.put("limit", orderQueryParams.getLimit());
+        map.put("offset", orderQueryParams.getOffset());
+
+        List<Order> orderList =
+                namedParameterJdbcTemplate.query(sql, map, new OrderRowMapper());
+
+        return orderList;
+    }
+
+    @Override
+    public Integer countOrder(OrderQueryParams orderQueryParams) {
+        String sql = " SELECT COUNT(*) FROM `order` WHERE 1=1 ";
+
+        HashMap<String, Object> map = new HashMap<>();
+
+        sql = addFilteringSql(sql, map, orderQueryParams);
+
+        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
+
+        return total;
+    }
+
+    private String addFilteringSql(String sql, Map<String, Object> map, OrderQueryParams orderQueryParams){
+        if(orderQueryParams.getUserId() != null) {
+            sql = sql + " AND user_id = :userId ";
+            map.put("userId", orderQueryParams.getUserId());
+        }
+
+        return sql;
     }
 }

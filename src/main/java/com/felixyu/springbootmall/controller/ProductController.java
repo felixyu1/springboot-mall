@@ -50,7 +50,7 @@ public class ProductController {
         List<Product> productList = productService.getProducts(productQueryParams);
         Integer total = productService.countProduct(productQueryParams);
 
-        Page<Product> page = new Page();
+        Page<Product> page = new Page<>();
         page.setLimit(limit);
         page.setOffset(offset);
         page.setTotal(total);

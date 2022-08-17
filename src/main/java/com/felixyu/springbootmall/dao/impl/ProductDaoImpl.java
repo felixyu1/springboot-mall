@@ -33,7 +33,7 @@ public class ProductDaoImpl implements ProductDao {
                 " FROM product " +
                 " WHERE 1=1 ";
 
-        HashMap<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
 
         sql = addFilteringSql(sql, map, productQueryParams);
 
@@ -126,6 +126,7 @@ public class ProductDaoImpl implements ProductDao {
                      " WHERE product_id = :productId ";
 
         Map<String, Object> map = new HashMap<>();
+        map.put("stock", stock);
         map.put("productId", productId);
 
         namedParameterJdbcTemplate.update(sql, map);
